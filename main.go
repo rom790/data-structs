@@ -132,7 +132,11 @@ func (list *List) slice(position, count int) {
 		end_el = end_el.next
 	}
 
-	current_el.next = end_el.next
+	if position == 0 {
+		list.head = end_el
+	} else {
+		current_el.next = end_el
+	}
 
 }
 
@@ -150,7 +154,7 @@ func main() {
 
 	fmt.Println(linked_list.get_len())
 
-	linked_list.slice(0, 3)
+	linked_list.slice(1, 4)
 	fmt.Println(linked_list.get_len())
 
 	linked_list.print_elem(0)
