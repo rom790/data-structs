@@ -140,6 +140,53 @@ func (list *List) slice(position, count int) {
 
 }
 
+func (list *List) input(index int, data ...int) {
+
+	if index > list.get_len() || index < 0 {
+		fmt.Println("index is incorrect")
+		return
+	}
+
+	current_el := list.head
+
+	for i := 0; i < index-1; i++ {
+		current_el = current_el.next
+	}
+
+	close_el := current_el.next
+	if index == 0 {
+		close_el = current_el
+
+	}
+
+	for i := 0; i < len(data); i++ {
+		if index == 0 && i == 0 {
+			list.head = &Node{data: data[i], next: nil}
+			current_el = list.head
+			continue
+		}
+		current_el.next = &Node{data: data[i], next: nil}
+		current_el = current_el.next
+	}
+
+	current_el.next = close_el
+}
+
+func (list *List) print_list() {
+	if list.get_len() == 0 {
+		fmt.Println("list is empty")
+		return
+	}
+
+	current_el := list.head
+
+	for current_el != nil {
+		fmt.Println(current_el.data)
+		current_el = current_el.next
+	}
+
+}
+
 func main() {
 
 	linked_list := List{}
@@ -150,13 +197,17 @@ func main() {
 	linked_list.push(632)
 	linked_list.push(9889)
 	linked_list.push(8448484)
-	linked_list.push(0)
+	linked_list.push(100)
+	// linked_list.push(100)
+	// linked_list.push(100)
 
-	fmt.Println(linked_list.get_len())
+	// fmt.Println(linked_list.get_len())
 
-	linked_list.slice(1, 4)
-	fmt.Println(linked_list.get_len())
+	// linked_list.slice(9, 4)
+	linked_list.input(7, 2, 4, 6, 8)
+	linked_list.print_list()
+	// fmt.Println(linked_list.get_len())
 
-	linked_list.print_elem(0)
+	// linked_list.print_elem(1)
 
 }
